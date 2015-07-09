@@ -1,0 +1,33 @@
+---
+
+- name: prepare - check if path exists
+  stat:
+    path: "{{ phoenix_app_path | dirname }}"
+  register: phoenix_app_path_check
+
+- name: prepare - create path if necessary
+  file:
+    dest: "{{ phoenix_app_path | dirname }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  become: yes
+  when: not phoenix_app_path_check.stat.exists
+
+- name: prepare - create app user group
+  group:
+    name: "{{ phoenix_app_group }}"
+    system: yes
+    state: present
+
+- name: prepare - create app user
+  user:
+   name: "{{ phoenix_app_user }}"
+   home: "{{ phoenix_app_path }}"
+   createhome: yes
+   group: "{{ phoenix_app_group }}"
+   shell: /bin/false
+   system: yes
+   state: present
+

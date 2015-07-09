@@ -1,0 +1,7 @@
+---
+
+- name: mix | install dependencies
+  shell: mix deps.get
+
+- name: npm | install dependencies
+  shell: npm install

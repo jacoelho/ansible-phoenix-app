@@ -1,0 +1,57 @@
+---
+
+- name: deploy - fetch source
+  git:
+    repo: "{{ phoenix_app_repository }}"
+    dest: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+    clone: yes
+    accept_hostkey: yes
+    version: "{{ phoenix_app_version }}"
+  become: yes
+  register: phoenix_app_clone
+  notify: phoenix_app - restart
+
+- name: deploy - npm install
+  npm:
+    path: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+    global: no
+    production: yes
+    state: latest
+  become: yes
+  when: phoenix_app_clone.changed
+  notify: phoenix_app - restart
+
+- name: brunch | build
+  command: "brunch build {{ phoenix_mix_env }}"
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
+- name: phoenix | digest assets
+  command: mix phoenix.digest
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
+- name: mix | release
+  command: mix release
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
+- name: mix | clean
+  command: mix deps.clean --all
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
+- name: mix | migrate
+  command: mix ecto.migrate
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
