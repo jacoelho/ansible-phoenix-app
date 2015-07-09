@@ -1,5 +1,7 @@
 ---
 
+- include: validate.yml
+
 - include: dependencies.yml
 
 - include: build.yml

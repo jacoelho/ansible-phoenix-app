@@ -21,6 +21,13 @@
   when: phoenix_app_clone.changed
   notify: phoenix_app - restart
 
+- name: mix | install dependencies
+  command: mix deps.get
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
 - name: brunch | build
   command: "brunch build {{ phoenix_mix_env }}"
   args:

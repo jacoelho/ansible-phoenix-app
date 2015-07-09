@@ -1,7 +1,16 @@
 ---
 
-- name: mix | install dependencies
-  shell: mix deps.get
+- name: mix | install hex
+  command: mix local.hex
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
 
-- name: npm | install dependencies
-  shell: npm install
+- name: mix | install phoenix
+  command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.14.0/phoenix_new-0.14.0.ez
+  args:
+    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+  become: yes
+  become_user: "{{ phoenix_app_user }}"
+
