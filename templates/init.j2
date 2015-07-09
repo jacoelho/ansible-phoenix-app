@@ -1,0 +1,16 @@
+# Managed by Ansible, do not edit!
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+setuid {{ phoenix_app_user }}
+setgid {{ phoenix_app_group }}
+
+script
+  . /etc/default/{{ phoenix_app_name }}
+  chdir {{ phoenix_app_path }}/{{ phoenix_app_name }}
+{% if phoenix_app_pidfile is defined and phoenix_app_pidfile != "" %}
+  echo $$ > {{ phoenix_app_pidfile }}
+{% endif %}
+  exec MIX_ENV={{ phoenix_app_mix_env }} PORT={{ phoenix_app_port }} iex -S mix phoenix.server
+end script
