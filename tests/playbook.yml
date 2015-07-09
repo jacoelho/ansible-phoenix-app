@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  sudo: yes
+
+  roles:
+    - role: nodesource.node
+    - role: jacoelho.elixir
+    - role: jacoelho.phoenix-app
+      phoenix_app_repository: "https://github.com/chrismccord/phoenix_chat_example.git"

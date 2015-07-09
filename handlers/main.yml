@@ -1,2 +1,4 @@
 ---
-# handlers file for jacoelho.phoenix
+
+- name: phoenix_app - restart
+  command: echo "cenas"

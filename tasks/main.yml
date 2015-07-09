@@ -2,6 +2,8 @@
 
 - include: validate.yml
 
+- include: prepare.yml
+
 - include: dependencies.yml
 
 - include: build.yml

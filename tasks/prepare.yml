@@ -27,7 +27,7 @@
    home: "{{ phoenix_app_path }}"
    createhome: yes
    group: "{{ phoenix_app_group }}"
-   shell: /bin/false
+   shell: /bin/bash
    system: yes
    state: present
 

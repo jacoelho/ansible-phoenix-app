@@ -1,16 +1,31 @@
 ---
 
-- name: mix | install hex
-  command: mix local.hex
-  args:
-    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+- name: mix | install mix dependencies
+  command: "mix {{ item }} --force"
   become: yes
   become_user: "{{ phoenix_app_user }}"
+  with_items:
+    - local.hex
+    - local.rebar
 
 - name: mix | install phoenix
-  command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.14.0/phoenix_new-0.14.0.ez
+  command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.14.0/phoenix_new-0.14.0.ez --force
   args:
-    chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
+    creates: "{{ phoenix_app_path }}/.mix/archives/phoenix_new-0.14.0.ez"
   become: yes
   become_user: "{{ phoenix_app_user }}"
 
+- name: packages | Install
+  apt:
+    name: git-core
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+  become: yes
+
+- name: packages | Install brunch
+  npm:
+    name: brunch
+    global: yes
+    state: present
+  become: yes
