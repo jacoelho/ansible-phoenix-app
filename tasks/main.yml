@@ -7,3 +7,5 @@
 - include: dependencies.yml
 
 - include: build.yml
+
+- include: finalize.yml

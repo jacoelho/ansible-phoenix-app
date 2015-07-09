@@ -8,3 +8,4 @@
     - role: jacoelho.elixir
     - role: jacoelho.phoenix-app
       phoenix_app_repository: "https://github.com/chrismccord/phoenix_chat_example.git"
+      phoenix_app_run_migrate: false
