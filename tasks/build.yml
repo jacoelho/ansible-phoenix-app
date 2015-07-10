@@ -24,6 +24,23 @@
   when: phoenix_app_clone.changed and phoenix_app_run_brunch
   notify: phoenix_app - restart
 
+- name: phoenix | create config directories
+  file:
+    path: "{{ item.file | dirname }}"
+    owner: "{{ phoenix_app_user }}"
+    group: "{{ phoenix_app_group }}"
+    state: directory
+    force: yes
+  with_items: phoenix_app_configs
+
+- name: phoenix | copy configs
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.file }}"
+    owner: "{{ phoenix_app_user }}"
+    group: "{{ phoenix_app_group }}"
+  with_items: phoenix_app_configs
+
 - name: mix | install dependencies
   command: mix deps.get
   args:
@@ -39,7 +56,7 @@
     chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
   become: yes
   become_user: "{{ phoenix_app_user }}"
-  when: phoenix_app_run_brunch
+  when: phoenix_app_clone.changed and phoenix_app_run_brunch
 
 - name: phoenix | digest assets
   command: mix phoenix.digest

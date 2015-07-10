@@ -13,3 +13,5 @@ phoenix_app_version: master
 phoenix_app_run_brunch: true
 phoenix_app_run_migrate: true
 phoenix_app_env: {}
+
+phoenix_app_configs: []

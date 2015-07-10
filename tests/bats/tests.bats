@@ -39,3 +39,11 @@
 @test "Check that app env was port defined" {
   grep "export PORT=\".*\"" /etc/default/app
 }
+
+@test "Check that config file was created" {
+  test -f "/var/www/app/config/test.exs"
+}
+
+@test "Check that config file has content" {
+  grep "use Mix.Config" /var/www/app/config/test.exs
+}

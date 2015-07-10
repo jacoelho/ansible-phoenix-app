@@ -5,3 +5,10 @@
     that:
       - phoenix_app_repository is defined and (phoenix_app_repository | length) > 0
 
+
+- name: check config syntax is valid
+  assert:
+    that:
+      - item.file is defined
+      - item.content is defined
+  with_items: phoenix_app_configs
