@@ -24,4 +24,4 @@ script:
   # Run the role/playbook with ansible-playbook.
   - ansible-playbook -i inventory tests/playbook.yml --connection=local --sudo
   # Run tests
-  - cd tests/bats; sudo su - app -c "/usr/bin/bats tests.bats"'
+  - cd tests/bats; sudo su app -c "/usr/bin/bats tests.bats"

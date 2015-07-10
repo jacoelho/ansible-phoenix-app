@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
     add-apt-repository ppa:duggan/bats --yes
     apt-get update -qq
     apt-get install -qq -y bats
-    sudo su - app -c "bats /vagrant/tests/bats/"
+    sudo su app -c "bats /vagrant/tests/bats/"
 
   END
 end
