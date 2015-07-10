@@ -12,5 +12,5 @@ script
 {% if phoenix_app_pidfile is defined and phoenix_app_pidfile != "" %}
   echo $$ > {{ phoenix_app_pidfile }}
 {% endif %}
-  exec MIX_ENV={{ phoenix_app_mix_env }} PORT={{ phoenix_app_port }} iex -S mix phoenix.server
+  exec iex -S mix phoenix.server
 end script

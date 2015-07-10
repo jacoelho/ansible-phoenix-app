@@ -1,8 +1,8 @@
 ---
 
-phoenix_app_name: phoenix
-phoenix_app_user: phoenix
-phoenix_app_group: phoenix
+phoenix_app_name: app
+phoenix_app_user: app
+phoenix_app_group: app
 phoenix_app_path: /var/www
 phoenix_app_port: 4000
 phoenix_app_mix_env: prod
@@ -12,3 +12,4 @@ phoenix_app_version: master
 
 phoenix_app_run_brunch: true
 phoenix_app_run_migrate: true
+phoenix_app_env: {}

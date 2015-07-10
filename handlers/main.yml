@@ -1,4 +1,6 @@
 ---
 
 - name: phoenix_app - restart
-  command: echo "cenas"
+  service:
+    name: "{{ phoenix_app_name }}"
+    state: restarted

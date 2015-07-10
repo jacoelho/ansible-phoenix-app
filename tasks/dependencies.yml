@@ -1,12 +1,14 @@
 ---
 
 - name: mix | install mix dependencies
-  command: "mix {{ item }} --force"
+  command: "mix {{ item.name }} --force"
+  args:
+    creates: "{{ phoenix_app_path }}/.mix/{{ item.file }}"
   become: yes
   become_user: "{{ phoenix_app_user }}"
   with_items:
-    - local.hex
-    - local.rebar
+    - { name: "local.hex",   file: "archives/hex.ez" }
+    - { name: "local.rebar", file: "rebar" }
 
 - name: mix | install phoenix
   command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.14.0/phoenix_new-0.14.0.ez --force

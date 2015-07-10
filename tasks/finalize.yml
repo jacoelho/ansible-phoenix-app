@@ -24,5 +24,4 @@
   service:
     name: "{{ phoenix_app_name }}"
     state: started
-  when: phoenix_app - restart
   become: yes
