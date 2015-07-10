@@ -18,10 +18,10 @@ before_script:
 
 script:
   # install requirements
-  - "ansible-galaxy install --role-file requirements.yml"
+  - ansible-galaxy install --role-file requirements.yml
   # Check the role/playbook's syntax.
-  - "ansible-playbook -i inventory tests/playbook.yml --syntax-check"
+  - ansible-playbook -i inventory tests/playbook.yml --syntax-check
   # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook -i inventory tests/playbook.yml --connection=local --sudo"
+  - ansible-playbook -i inventory tests/playbook.yml --connection=local --sudo
   # Run tests
-  - "bats tests/bats"
+  - sudo su - app -c "bats /vagrant/tests/bats/"
