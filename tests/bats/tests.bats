@@ -31,3 +31,12 @@
 @test "Check that app env was created" {
   test -f "/etc/default/app"
 }
+
+
+@test "Check that app env was mix_env defined" {
+  grep "export MIX_ENV=\".*\"" /etc/default/app
+}
+
+@test "Check that app env was port defined" {
+  grep "export PORT=\".*\"" /etc/default/app
+}
