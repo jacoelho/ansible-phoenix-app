@@ -50,3 +50,16 @@ phoenix_app_configs:
         :config, :test, :test "something"
 ```
 
+### Dependencies
+
+This role need elixir installed and may need nodejs
+
+Recommended roles:
+* [nodesource.node](https://galaxy.ansible.com/list#/roles/1488)
+* [jacoelho.elixir](https://galaxy.ansible.com/list#/roles/4145)
+
+### Author Information
+
+José Coelho
+
+Thanks to [mtpereira](https://mtpereira.com) [role](https://github.com/mtpereira/ansible-nodejs-app/) for role structure
