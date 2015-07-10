@@ -24,6 +24,7 @@ Vagrant.configure(2) do |config|
     apt-get update -qq
     apt-get install -qq -y bats
     sudo su - app -c "bats /vagrant/tests/bats/"
+
   END
 end
 
