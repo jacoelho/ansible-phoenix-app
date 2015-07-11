@@ -9,6 +9,8 @@ phoenix_app_mix_env: prod
 phoenix_app_repository: ""
 phoenix_app_version: master
 
+phoenix_app_bin: "mix phoenix.server"
+
 
 phoenix_app_run_brunch: true
 phoenix_app_run_migrate: true

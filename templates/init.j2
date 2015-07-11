@@ -12,5 +12,5 @@ script
 {% if phoenix_app_pidfile is defined and phoenix_app_pidfile != "" %}
   echo $$ > {{ phoenix_app_pidfile }}
 {% endif %}
-  exec iex -S mix phoenix.server
+  exec {{ phoenix_app_bin }}
 end script
