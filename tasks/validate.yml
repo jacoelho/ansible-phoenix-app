@@ -1,9 +1,9 @@
 ---
 
-- name: check if repository is defined
+- name: check if repository is valid
   assert:
     that:
-      - phoenix_app_repository is defined and (phoenix_app_repository | length) > 0
+      - not phoenix_app_repository or (phoenix_app_repository | length) > 0
 
 
 - name: check config syntax is valid
