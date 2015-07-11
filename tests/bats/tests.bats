@@ -40,6 +40,12 @@
   grep "export PORT=\".*\"" /etc/default/app
 }
 
+@test "Check that app is running" {
+  bash -c "netstat -an |grep -o 0.0.0.0:4000"
+  [ "$status" -eq 0 ]
+  [ "$output" = "0.0.0.0:4000" ]
+}
+
 @test "Check that config file was created" {
   test -f "/var/www/app/config/test.exs"
 }
