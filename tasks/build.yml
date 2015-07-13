@@ -10,7 +10,7 @@
     version: "{{ phoenix_app_version }}"
   become: yes
   become_user: "{{ phoenix_app_user }}"
-  when: phoenix_app_repository
+  when: phoenix_app_repository is defined
   register: phoenix_app_clone
   notify: phoenix_app - restart
 
@@ -22,7 +22,7 @@
     state: latest
   become: yes
   become_user: "{{ phoenix_app_user }}"
-  when: (not phoenix_app_clone or phoenix_app_clone.changed) and phoenix_app_run_brunch
+  when: phoenix_app_clone is defined and phoenix_app_clone.changed and phoenix_app_run_brunch
   notify: phoenix_app - restart
 
 - name: phoenix | create config directories

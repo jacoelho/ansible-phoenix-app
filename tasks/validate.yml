@@ -3,7 +3,8 @@
 - name: check if repository is valid
   assert:
     that:
-      - not phoenix_app_repository or (phoenix_app_repository | length) > 0
+      - phoenix_app_repository | length > 0
+  when: phoenix_app_repository is defined
 
 
 - name: check config syntax is valid
