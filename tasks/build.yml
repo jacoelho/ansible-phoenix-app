@@ -78,3 +78,8 @@
   become: yes
   become_user: "{{ phoenix_app_user }}"
   when: phoenix_app_run_migrate
+
+- name: phoenix | start application
+  service:
+    name: "{{ phoenix_app_name }}"
+    state: "started"
