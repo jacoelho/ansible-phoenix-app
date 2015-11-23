@@ -71,8 +71,7 @@
 
 - name: mix | migrate
   command: mix ecto.migrate
-  environment:
-    MIX_ENV: "{{ phoenix_app_mix_env }}"
+  environment: {{ phoenix_app_env }}
   args:
     chdir: "{{ phoenix_app_path }}/{{ phoenix_app_name }}"
   become: yes
