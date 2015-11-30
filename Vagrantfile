@@ -9,22 +9,19 @@ Vagrant.configure(2) do |config|
     v.customize ["modifyvm", :id, "--cpus", 1, "--memory", 256]
   end
 
-  config.vm.provision :shell, :inline => <<-END
-    sed -i -e 's/%sudo\tALL=NOPASSWD:ALL/%sudo\tALL=(ALL:ALL) ALL/' /etc/sudoers
-  END
-
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "tests/playbook.yml"
     ansible.verbose = "vvvv"
   end
 
   config.vm.provision :shell, :inline => <<-END
-    apt-get install -qq -y software-properties-common
-    add-apt-repository ppa:duggan/bats --yes
-    apt-get update -qq
-    apt-get install -qq -y bats
-    sudo su app -c "bats /vagrant/tests/bats/"
-
+    command -v bats >/dev/null 2>&1 || {
+      apt-get install -qq -y software-properties-common
+      add-apt-repository ppa:duggan/bats --yes
+      apt-get update -qq
+      apt-get install -qq -y bats
+    }
+    /vagrant/tests/check.bats
   END
 end
 

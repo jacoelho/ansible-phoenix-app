@@ -1,5 +1,6 @@
 ---
 
+phoenix_app_framework_version: "1.0.3"
 phoenix_app_name: app
 phoenix_app_user: app
 phoenix_app_group: app

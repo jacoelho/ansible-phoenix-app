@@ -11,9 +11,9 @@
     - { name: "local.rebar", file: "rebar" }
 
 - name: mix | install phoenix
-  command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.14.0/phoenix_new-0.14.0.ez --force
+  command: mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v{{ phoenix_app_framework_version }}/phoenix_new-{{ phoenix_app_framework_version }}.ez --force
   args:
-    creates: "{{ phoenix_app_path }}/.mix/archives/phoenix_new-0.14.0.ez"
+    creates: "{{ phoenix_app_path }}/.mix/archives/phoenix_new-{{ phoenix_app_framework_version }}.ez"
   become: yes
   become_user: "{{ phoenix_app_user }}"
 
