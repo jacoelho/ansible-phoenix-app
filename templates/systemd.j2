@@ -1,0 +1,13 @@
+[Unit]
+Description={{ phoenix_app_name }}
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/{{ phoenix_app_name }}
+ExecStart=/usr/local/bin/mix phoenix.server
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias={{ phoenix_app_name }}.service

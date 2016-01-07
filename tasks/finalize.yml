@@ -20,6 +20,16 @@
   become: yes
   notify: phoenix_app - restart
 
+- name: deploy - systemd script
+  template:
+    dest: "/etc/systemd/{{ phoenix_app_name }}.conf"
+    src: systemd.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+
 - name: deploy - start app
   service:
     name: "{{ phoenix_app_name }}"
