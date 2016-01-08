@@ -22,7 +22,7 @@
 
 - name: deploy - systemd script
   template:
-    dest: "/etc/systemd/{{ phoenix_app_name }}.conf"
+    dest: "/etc/systemd/system/{{ phoenix_app_name }}.service"
     src: systemd.j2
     owner: root
     group: root
