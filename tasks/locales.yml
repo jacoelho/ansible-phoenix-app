@@ -1,0 +1,7 @@
+---
+
+- name: generate locale
+  locale_gen:
+    name: "{{ phoenix_app_locale }}"
+    state: present
+  become: yes
