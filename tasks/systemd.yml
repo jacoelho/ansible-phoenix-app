@@ -20,7 +20,7 @@
 - name: deploy - systemd app environment
   template:
     dest: "/etc/systemd/system/{{ phoenix_app_name }}.service.d/30-environment.conf"
-    src: systemd-environment.j2
+    src: env.j2
     owner: root
     group: root
     mode: 0644

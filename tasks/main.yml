@@ -22,7 +22,7 @@
   when: init.stat is defined
 
 - include: upstart.yml
-  when: init_system is defined and init_system == 'upstart'
+  when: init_system is defined and init_system == 'init'
 
 - include: systemd.yml
   when: init_system is defined and init_system == 'systemd'
