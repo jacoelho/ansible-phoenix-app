@@ -1,40 +1,13 @@
 ---
 
-- name: deploy - env config
-  template:
-    dest: "/etc/default/{{ phoenix_app_name }}"
-    src: env.j2
-    owner: root
-    group: root
-    mode: 0644
-  become: yes
-  notify: phoenix_app - restart
-
-- name: deploy - upstart script
-  template:
-    dest: "/etc/init/{{ phoenix_app_name }}.conf"
-    src: init.j2
-    owner: root
-    group: root
-    mode: 0644
-  become: yes
-  notify: phoenix_app - restart
-
-- name: deploy - check if systemd is available
-  stat:
-    path: /etc/systemd
-  changed_when: false
-  register: systemd
-
 - name: deploy - create systemd app directory
   file:
     path: "/etc/systemd/system/{{ phoenix_app_name }}.service.d"
     recurse: yes
     state: directory
   notify: phoenix_app - restart
-  when: systemd.stat.isdir is defined and systemd.stat.isdir
 
-- name: deploy - systemd script
+- name: deploy - systemd app service
   template:
     dest: "/etc/systemd/system/{{ phoenix_app_name }}.service"
     src: systemd.j2
@@ -43,7 +16,6 @@
     mode: 0644
   become: yes
   notify: phoenix_app - restart
-  when: systemd.stat.isdir is defined and systemd.stat.isdir
 
 - name: deploy - systemd app environment
   template:
@@ -54,7 +26,6 @@
     mode: 0644
   become: yes
   notify: phoenix_app - restart
-  when: systemd.stat.isdir is defined and systemd.stat.isdir
 
 - name: deploy - start app
   service:

@@ -1,0 +1,27 @@
+---
+
+- name: deploy - env config
+  template:
+    dest: "/etc/default/{{ phoenix_app_name }}"
+    src: env.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+
+- name: deploy - upstart script
+  template:
+    dest: "/etc/init/{{ phoenix_app_name }}.conf"
+    src: init.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+
+- name: deploy - start app
+  service:
+    name: "{{ phoenix_app_name }}"
+    state: started
+  become: yes

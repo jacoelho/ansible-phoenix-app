@@ -4,7 +4,7 @@
 Environment=HOME={{ phoenix_app_path }}
 Environment=MIX_ENV={{ phoenix_app_mix_env }}
 Environment=PORT={{ phoenix_app_port }}
-Environment=LANG=en_US.UTF-8
+Environment=LANG={{ phoenix_app_locale }}
 {% for key,value in phoenix_app_env.iteritems() %}
 Environment={{ key }}={{ value }}
 {% endfor %}
