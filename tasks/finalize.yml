@@ -20,13 +20,35 @@
   become: yes
   notify: phoenix_app - restart
 
-- stat: path=/etc/systemd
+- name: deploy - check if systemd is available
+  stat:
+    path: /etc/systemd
+  changed_when: false
   register: systemd
+
+- name: deploy - create systemd app directory
+  file:
+    path: "/etc/systemd/system/{{ phoenix_app_name }}.service.d"
+    recurse: yes
+    state: directory
+  notify: phoenix_app - restart
+  when: systemd.stat.isdir is defined and systemd.stat.isdir
 
 - name: deploy - systemd script
   template:
     dest: "/etc/systemd/system/{{ phoenix_app_name }}.service"
     src: systemd.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+  when: systemd.stat.isdir is defined and systemd.stat.isdir
+
+- name: deploy - systemd app environment
+  template:
+    dest: "/etc/systemd/system/{{ phoenix_app_name }}.service.d/30-environment.conf"
+    src: systemd-environment.j2
     owner: root
     group: root
     mode: 0644

@@ -17,7 +17,8 @@
 }
 
 @test "Check that hex was installed" {
-  mix hex.info
+  run sudo su - app -c 'mix hex.info'
+  [ "$status" -eq 0 ]
 }
 
 @test "Check that git was installed" {
