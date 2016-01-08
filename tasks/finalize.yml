@@ -20,6 +20,9 @@
   become: yes
   notify: phoenix_app - restart
 
+- stat: path=/etc/systemd
+  register: systemd
+
 - name: deploy - systemd script
   template:
     dest: "/etc/systemd/system/{{ phoenix_app_name }}.service"
@@ -29,6 +32,7 @@
     mode: 0644
   become: yes
   notify: phoenix_app - restart
+  when: systemd.stat.isdir is defined and systemd.stat.isdir
 
 - name: deploy - start app
   service:
