@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  # config.vm.box = 'boxcutter/ubuntu1404'
   config.vm.box = 'boxcutter/ubuntu1510'
 
   config.vm.provider :virtualbox do |v|
