@@ -1,0 +1,34 @@
+---
+
+- name: deploy - create systemd app directory
+  file:
+    path: "/etc/systemd/system/{{ phoenix_app_name }}.service.d"
+    recurse: yes
+    state: directory
+  notify: phoenix_app - restart
+
+- name: deploy - systemd app service
+  template:
+    dest: "/etc/systemd/system/{{ phoenix_app_name }}.service"
+    src: systemd.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+
+- name: deploy - systemd app environment
+  template:
+    dest: "/etc/systemd/system/{{ phoenix_app_name }}.service.d/30-environment.conf"
+    src: env.j2
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify: phoenix_app - restart
+
+- name: deploy - start app
+  service:
+    name: "{{ phoenix_app_name }}"
+    state: started
+  become: yes

@@ -2,12 +2,29 @@
 
 - include: validate.yml
 
+- include: locales.yml
+
 - include: prepare.yml
 
 - include: dependencies.yml
 
 - include: build.yml
 
-- include: finalize.yml
+- name: check init system
+  stat:
+    path: "/proc/1/exe"
+  changed_when: false
+  register: init
+  become: yes
+
+- set_fact:
+    init_system: "{{ init.stat.lnk_source | basename }}"
+  when: init.stat is defined
+
+- include: upstart.yml
+  when: init_system is defined and init_system == 'init'
+
+- include: systemd.yml
+  when: init_system is defined and init_system == 'systemd'
 
 - meta: flush_handlers
