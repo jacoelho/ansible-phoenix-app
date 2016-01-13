@@ -7,10 +7,11 @@
     - role: nodesource.node
     - role: jacoelho.elixir
     - role: ansible-phoenix-app
-      phoenix_app_repository: "https://github.com/chrismccord/phoenix_chat_example.git"
+      phoenix_app_repository: "https://github.com/jacoelho/phoenix-hello.git"
       phoenix_app_run_migrate: false
       phoenix_app_configs:
-        - file: "{{ phoenix_app_path }}/{{ phoenix_app_name }}/config/test.exs"
+        - file: "{{ phoenix_app_path }}/{{ phoenix_app_name }}/config/prod.secret.exs"
           content: |
             use Mix.Config
-            config :test, :test, "test"
+            config :hello, Hello.Endpoint,
+              secret_key_base: "B89XT9qB3zdUB03nfN0gw1MNiqbkVBpez0PeHTC/dZ5zoDSCfF+DLwSuE3KFor/D"

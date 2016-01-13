@@ -1,0 +1,15 @@
+[Unit]
+Description={{ phoenix_app_name }}
+After=network.target
+
+[Service]
+User={{ phoenix_app_user }}
+Group={{ phoenix_app_group }}
+WorkingDirectory={{ phoenix_app_path }}/{{ phoenix_app_name }}
+ExecStart=/usr/local/bin/mix phoenix.server
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias={{ phoenix_app_name }}.service

@@ -17,7 +17,8 @@
 }
 
 @test "Check that hex was installed" {
-  mix hex.info
+  run sudo su - app -c 'mix hex.info'
+  [ "$status" -eq 0 ]
 }
 
 @test "Check that git was installed" {
@@ -33,11 +34,11 @@
 }
 
 @test "Check that app env was mix_env defined" {
-  grep "export MIX_ENV=\".*\"" /etc/default/app
+  grep "MIX_ENV=\".*\"" /etc/default/app
 }
 
 @test "Check that app env was port defined" {
-  grep "export PORT=\".*\"" /etc/default/app
+  grep "PORT=\".*\"" /etc/default/app
 }
 
 @test "Check that app is running" {
